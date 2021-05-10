@@ -2,6 +2,7 @@ package com.viniciusaugusto.bookstoremanager.controller;
 
 import com.viniciusaugusto.bookstoremanager.dto.BookDTO;
 import com.viniciusaugusto.bookstoremanager.dto.MessageResponseDTO;
+import com.viniciusaugusto.bookstoremanager.exceptions.BookNotFoundException;
 import com.viniciusaugusto.bookstoremanager.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,5 +21,10 @@ public class BookController {
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponseDTO create(@RequestBody @Valid BookDTO bookDTO) {
         return service.create(bookDTO);
+    }
+
+    @GetMapping("/{id}")
+    public BookDTO findById(@PathVariable  Long id) throws BookNotFoundException {
+        return service.findById(id);
     }
 }
